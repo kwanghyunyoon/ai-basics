@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="manifest" href="manifest.json">
+
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Service Worker registered!', reg))
+                .catch(err => console.error('Service Worker registration failed: ', err));
+        });
+    }
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Course Viewer</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered!', reg))
+                    .catch(err => console.error('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</head>
+<body class="course-view">
+    <header class="app-header course-header">
+        <button id="btn-back" class="icon-btn" aria-label="Go Back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <h1 id="ui-course-title">Loading...</h1>
+    </header>
+
+    <main class="container">
+        <div id="ui-section-progress" class="section-progress"></div>
+        
+        <h2 id="ui-section-title" class="section-title"></h2>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="concept">Concept</button>
+                <button class="tab-btn" data-tab="scenario">Scenario</button>
+                <button class="tab-btn" data-tab="exercise">Exercise</button>
+                <button class="tab-btn" data-tab="knowledgeCheck">Review</button>
+            </div>
+        </div>
+
+        <div id="ui-tab-content" class="tab-content markdown-body">
+            </div>
+    </main>
+
+    <nav class="bottom-nav course-nav">
+        <button id="btn-prev" class="nav-action-btn secondary" disabled>Previous</button>
+        <button id="btn-next" class="nav-action-btn primary">Next</button>
+    </nav>
+
+    <div id="completion-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-icon">🎉</div>
+            <h2>Course Complete!</h2>
+            <p>You've successfully completed all sections of this module.</p>
+            <button id="btn-return-home" class="btn-primary">Return Home</button>
+        </div>
+    </div>
+
+    <script type="module" src="course.js"></script>
+</body>
+</html>
