@@ -1,4 +1,4 @@
-# AI Basics: Building an AI Brain + Everyday AI Usage
+# AI Basics: Everyday AI Usage
 
 A lightweight, mobile-first Progressive Web App (PWA) designed to teach the fundamentals of Large Language Models (LLMs) and how to practically integrate tools like ChatGPT, Claude, Gemini, and Perplexity into daily workflows. 
 
