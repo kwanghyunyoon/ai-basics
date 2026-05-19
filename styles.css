@@ -134,3 +134,45 @@ body {
 .nav-item.active {
     color: var(--accent);
 }
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    display: none !important;
+}
+
+.modal-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    max-width: 90%;
+    width: 320px;
+    box-shadow: var(--shadow-md);
+}
+
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+}
