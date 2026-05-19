@@ -9,8 +9,26 @@ export const courses = [
         scenario: `Think about the autocomplete feature on your smartphone. When you type "I am running five minutes...", your phone suggests "late." Your phone doesn't know where you are or what a clock is; it just knows that "late" is the most common word to follow that phrase. AI is like that smartphone keyboard, but billions of times more powerful.`,
         exercise: `Open any free AI tool (like ChatGPT, Claude, or Gemini). Type this exact prompt:\n\n*Prompt: "Explain what you are and how you work, but use the simplest language possible. Imagine you are explaining it to a 10-year-old."*\n\nRead the response to see how the AI describes its own programming without technical jargon.`,
         knowledgeCheck: [
-          `Does an AI have thoughts, feelings, and a personal understanding of the world?`,
-          `What everyday smartphone feature uses the same basic "predictive" technology as modern AI?`
+          {
+            question: `Does an AI have thoughts, feelings, and a personal understanding of the world?`,
+            options: [
+              `Yes, it feels emotions just like humans.`,
+              `No, it just recognizes patterns incredibly well.`,
+              `Only the newest models have feelings.`
+            ],
+            correctAnswerIndex: 1, // Note: index starts at 0, so '1' is the second option
+            explanation: `AI is essentially a world-class pattern-matching calculator. It doesn't "think" or "feel".`
+          },
+          {
+            question: `What everyday smartphone feature uses the same basic "predictive" technology as modern AI?`,
+            options: [
+              `The camera app`,
+              `The GPS navigation`,
+              `The keyboard autocomplete`
+            ],
+            correctAnswerIndex: 2,
+            explanation: `Just like autocomplete guesses the next word you want to type, AI calculates the most logical next word based on patterns.`
+          }
         ]
       },
       {
