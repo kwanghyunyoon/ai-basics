@@ -1,4 +1,4 @@
-// Import your courses (Assuming you combined the 6 objects into one exported array)
+// Import your courses
 import { courses } from './courses.js'; 
 
 const DOM = {
@@ -67,8 +67,8 @@ function renderProgressView() {
 
 // Global function to attach to the onclick handler of the cards
 window.openCourse = function(courseId) {
-    console.log(`Opening course: ${courseId}`);
-    // Here you will eventually call your render logic for the actual course content view
+    // Navigate to the course viewer and pass the ID in the URL
+    window.location.href = `course.html?id=${courseId}`;
 };
 
 // --- Navigation Logic ---
