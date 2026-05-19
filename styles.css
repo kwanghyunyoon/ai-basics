@@ -306,3 +306,107 @@ body {
     background-color: var(--border);
     color: var(--text-main);
 }
+/* --- Interactive Quiz Styles --- */
+.quiz-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.quiz-question {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+}
+
+.quiz-q-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quiz-option:hover {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+}
+
+.quiz-option input[type="radio"] {
+    margin-top: 4px;
+    margin-right: 12px;
+    transform: scale(1.2);
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.option-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.btn-check-answer {
+    background: var(--border);
+    color: var(--text-main);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-check-answer:hover {
+    background: #cbd5e1;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.quiz-feedback.hidden {
+    display: none;
+}
+
+.quiz-feedback.success {
+    display: block;
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #34d399;
+}
+
+.quiz-feedback.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #f87171;
+}
+
+.quiz-feedback.warning {
+    display: block;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+}
