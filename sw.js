@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ai-course-v1';
+const CACHE_NAME = 'ai-course-v2';
 
 // List of all the files needed for the app to work offline
 const ASSETS_TO_CACHE = [
