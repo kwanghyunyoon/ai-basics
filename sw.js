@@ -7,13 +7,10 @@ const ASSETS_TO_CACHE = [
     './course.html',
     './styles.css',
     './app.js',
-    './course.js',
     './courses.js',
     './manifest.json',
     './assets/icon-192.png',
-    './assets/icon-512.png',
-    // Cache the markdown parser CDN so it works offline too
-    'https://cdn.jsdelivr.net/npm/marked/marked.min.js'
+    './assets/icon-512.png'
 ];
 
 // Install Event: Cache all critical assets
@@ -22,6 +19,8 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME).then((cache) => {
             console.log('Opened cache');
             return cache.addAll(ASSETS_TO_CACHE);
+        }).catch((error) => {
+            console.error('Cache installation failed:', error);
         })
     );
 });
@@ -33,6 +32,7 @@ self.addEventListener('activate', (event) => {
             return Promise.all(
                 cacheNames.map((cacheName) => {
                     if (cacheName !== CACHE_NAME) {
+                        console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
@@ -50,7 +50,9 @@ self.addEventListener('fetch', (event) => {
                 return response;
             }
             // Otherwise, fetch from the network
-            return fetch(event.request);
+            return fetch(event.request).catch(() => {
+                console.warn('Fetch failed for:', event.request.url);
+            });
         })
     );
 });
