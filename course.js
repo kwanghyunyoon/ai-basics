@@ -85,13 +85,78 @@ function renderTabContent() {
     const section = currentCourse.sections[currentSectionIndex];
     let content = section[currentTab];
     
-    // Handle the Knowledge Check arrays
-    if (Array.isArray(content)) {
-        content = content.map(item => `* ${item}`).join('\n');
+    // SPECIAL HANDLING FOR THE QUIZ TAB
+    if (currentTab === 'knowledgeCheck' && Array.isArray(content)) {
+        renderQuiz(content);
+        return; // Stop here so it doesn't try to parse Markdown
     }
 
-    // Parse Markdown using the marked.js library included in your HTML
+    // Normal Markdown parsing for Concept, Scenario, and Exercise
     DOM.tabContent.innerHTML = marked.parse(content || '*Content coming soon...*');
+}
+
+function renderQuiz(questions) {
+    DOM.tabContent.innerHTML = ''; // Clear previous content
+    const container = document.createElement('div');
+    container.className = 'quiz-container';
+
+    questions.forEach((q, qIndex) => {
+        // Fallback: If the question is still just a string, render as a bullet point
+        if (typeof q === 'string') {
+            const p = document.createElement('p');
+            p.textContent = `• ${q}`;
+            container.appendChild(p);
+            return;
+        }
+
+        // If it's an interactive object, build the quiz UI
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'quiz-question';
+        
+        let optionsHtml = q.options.map((opt, oIndex) => `
+            <label class="quiz-option">
+                <input type="radio" name="q-${qIndex}" value="${oIndex}">
+                <span class="option-text">${opt}</span>
+            </label>
+        `).join('');
+
+        questionDiv.innerHTML = `
+            <p class="quiz-q-text"><strong>Q${qIndex + 1}:</strong> ${q.question}</p>
+            <div class="quiz-options">${optionsHtml}</div>
+            <button class="btn-check-answer" data-qindex="${qIndex}">Check Answer</button>
+            <div class="quiz-feedback hidden" id="feedback-${qIndex}"></div>
+        `;
+
+        container.appendChild(questionDiv);
+    });
+
+    DOM.tabContent.appendChild(container);
+
+    // Add event listeners to check answers
+    const checkBtns = container.querySelectorAll('.btn-check-answer');
+    checkBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const qIndex = e.target.dataset.qindex;
+            const qData = questions[qIndex];
+            const selected = document.querySelector(`input[name="q-${qIndex}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${qIndex}`);
+
+            if (!selected) {
+                feedbackEl.innerHTML = "⚠️ Please select an answer first.";
+                feedbackEl.className = "quiz-feedback warning";
+                return;
+            }
+
+            const selectedIndex = parseInt(selected.value);
+            if (selectedIndex === qData.correctAnswerIndex) {
+                feedbackEl.innerHTML = `<strong>✅ Correct!</strong> ${qData.explanation}`;
+                feedbackEl.className = "quiz-feedback success";
+            } else {
+                feedbackEl.innerHTML = `<strong>❌ Not quite.</strong> Give it another try.`;
+                feedbackEl.className = "quiz-feedback error";
+            }
+        });
+    });
 }
 
 function updateProgressUI() {
